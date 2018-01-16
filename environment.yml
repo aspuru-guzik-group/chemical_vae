@@ -1,0 +1,21 @@
+name: chemvae
+channels:
+  - rdkit
+  - conda-forge
+
+dependencies:
+  - keras=2.0.6
+  - tensorflow
+  - h5py
+  - hdf5
+  - pandas
+  - python=3
+  - scikit-learn
+  - boost
+  - rdkit
+  - yaml
+  - numpy
+  - matplotlib
+
+
+
