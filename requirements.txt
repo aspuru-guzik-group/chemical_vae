@@ -1,0 +1,5 @@
+numpy
+Keras==2.0.7
+pandas==0.19.2
+tensorflow_gpu==1.1.0
+PyYAML
