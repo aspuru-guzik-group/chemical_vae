@@ -39,13 +39,15 @@ Or install via pip
 This repository contains an example of how to run the autoencoder on the zinc dataset.
 
 First, take a look at the zinc directory. Parameters are set in the following jsons
-  - exp.json  - Sets parameters for location of data, global experimental parameters number of epochs to run, properties to predict etc. 
+  - **exp.json**  - Sets parameters for location of data, global experimental parameters number of epochs to run, properties to predict etc. 
 
 For a full description of all the parameters, see hyperparameters.py ; parameters set in exp.json will overwrite parameters in hyperparameters.py, and parameters set in params.json will overwrite parameters in both exp.json and hyperparameters.py
 
 Once you have set the parameters, run the autoencoder using the command from directory with exp.json: 
 
+`
 python -m chemvae.train_vae
+`
 
 _(Make sure you copy examples directories to not overwrite the trained weights (*.h5))_
 
