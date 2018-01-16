@@ -12,11 +12,13 @@ In our example, we perform encoding/decoding with the ZINC dataset, and shape th
 - [ ] Improved tutorial
 
 ## Requirements: 
+
+Check the environment.yml file, but primarily:
 - Keras >= 2.0.0 && <= 2.0.7
 - Tensorflow == 1.1
 - RDKit
 
-You may also use this [docker environment](https://github.com/beangoben/docker_images/tree/master/chemical_vae) 
+A jupyter notebook enviroment is suggested to run the ipynb examples.
 
 ## Install 
 
@@ -29,6 +31,7 @@ python setup.py install
 ```
 
 Or install via pip
+
 `pip install git+https://github.com/aspuru-guzik-group/chemical_vae.git`
 
 ## Example: ZINC dataset
