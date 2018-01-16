@@ -8,7 +8,6 @@ In short, molecular SMILES are encoded into a code vector representation, and ca
 In our example, we perform encoding/decoding with the ZINC dataset, and shape the latent space on prediction on logP, QED, and SAS properties.
 
 ## Upcoming updates:
-- [ ] Updated requirements.txt
 - [ ] Updated Docker environment
 - [ ] Improved tutorial
 
@@ -20,6 +19,16 @@ In our example, we perform encoding/decoding with the ZINC dataset, and shape th
 You may also use this [docker environment](https://github.com/beangoben/docker_images/tree/master/chemical_vae) 
 
 ## Install 
+
+Create a conda enviroment:
+
+`
+conda env create -f environment.yml
+source activate chemvae
+python setup.py install
+`
+
+Or install via pip
 `pip install git+https://github.com/aspuru-guzik-group/chemical_vae.git`
 
 ## Example: ZINC dataset
