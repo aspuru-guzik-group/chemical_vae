@@ -22,11 +22,11 @@ You may also use this [docker environment](https://github.com/beangoben/docker_i
 
 Create a conda enviroment:
 
-`
+```
 conda env create -f environment.yml
 source activate chemvae
 python setup.py install
-`
+```
 
 Or install via pip
 `pip install git+https://github.com/aspuru-guzik-group/chemical_vae.git`
@@ -51,20 +51,14 @@ train_vae.py : main script for training variational autoencoder
     Accepts arguments -d ...
     Example of how to run (with example directory here)
 
-models.py - Library of models, contains the encoder, decoder and property prediction models.
-
-tgru_k2_gpu.py - Custom keras layer containing custom teacher forcing/sampling 
-
-sampled_rnn_tf.py - Custom rnn function for tgru_k2_gpu.py, written in tensorflow backend.
-
-hyperparameters.py - Some default parameter settings for the autoencoder
-
-mol_utils.py - library for parsing SMILES into one-hot encoding and vice versa
-
-mol_callbacks.py - library containing callbacks used by train_vae.py
-    - Includes Weight_Annealer callback, which is used to update the weight of the KL loss component
-
-vae_utils.py - utility functions for an autoencoder object, used post processing.
+- **models.py** - Library of models, contains the encoder, decoder and property prediction models.
+- **tgru_k2_gpu.py** - Custom keras layer containing custom teacher forcing/sampling 
+- **sampled_rnn_tf.py** - Custom rnn function for tgru_k2_gpu.py, written in tensorflow backend.
+- **hyperparameters.py** - Some default parameter settings for the autoencoder
+- **mol_utils.py** - library for parsing SMILES into one-hot encoding and vice versa
+- **mol_callbacks.py** - library containing callbacks used by train_vae.py
+  - Includes Weight_Annealer callback, which is used to update the weight of the KL loss component
+- **vae_utils.py** - utility functions for an autoencoder object, used post processing.
 
 ## Authors:
 This software is written by Jennifer Wei, Benjamin Sanchez-Lengeling, Dennis Sheberla, Rafael Gomez-Bomberelli, and Alan Aspuru-Guzik (alan@aspuru.com). 
