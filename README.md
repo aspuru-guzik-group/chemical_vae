@@ -6,6 +6,8 @@ This repository contains the framework and code for constructing a variational a
 In short, molecular SMILES are encoded into a code vector representation, and can be decoded from the code representation back to molecular SMILES. The autoencoder may also be jointly trained with property prediction to help shape the latent space. The new latent space can then be optimized upon to find the molecules with the most optimized properties of interest.
 
 In our example, we perform encoding/decoding with the ZINC dataset, and shape the latent space on prediction on logP, QED, and SAS properties.
+## Questions, problems?
+Make a github issue :)
 
 ## Upcoming updates:
 - [ ] Updated Docker environment
