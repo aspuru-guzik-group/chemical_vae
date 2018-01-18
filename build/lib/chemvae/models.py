@@ -70,7 +70,7 @@ def encoder_model(params):
 
 
 def load_encoder(params):
-    # Need to handle K_params somehow...
+    # Need to handle K_params somehow... 
     # Also are we going to be able to save this layer?
     # encoder = encoder_model(params, K.constant(0))
     # encoder.load_weights(params['encoder_weights_file'])
@@ -236,7 +236,7 @@ def property_predictor_model(params):
         reg_prop_pred = Dense(len(params['reg_prop_tasks']), activation='linear',
                               name='reg_property_output')(prop_mid)
 
-    # for logistic tasks
+    # for logistic tasks 
     if ('logit_prop_tasks' in params) and (len(params['logit_prop_tasks']) > 0):
         logit_prop_pred = Dense(len(params['logit_prop_tasks']), activation='sigmoid',
                                 name='logit_property_output')(prop_mid)

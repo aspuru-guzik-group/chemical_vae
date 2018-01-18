@@ -1,3 +1,4 @@
+# from autoencoder.utils import encode_decode as lasp
 from . import mol_utils as mu
 from . import hyperparameters
 import random
@@ -17,9 +18,11 @@ class VAEUtils(object):
                  directory=None):
         # files
         if directory is not None:
-            curdir = os.getcwd()
-            os.chdir(os.path.join(curdir, directory))
+            curdir=os.getcwd()
+            os.chdir(os.path.join(curdir,directory))
             # exp_file = os.path.join(directory, exp_file)
+
+        # print(os.getcwd())
 
         # load parameters
         self.params = hyperparameters.load_params(exp_file, False)
@@ -117,11 +120,11 @@ class VAEUtils(object):
         return df
 
     def z_to_smiles(self,
-                    z,
-                    decode_attempts=250,
-                    noise_norm=0.0,
-                    constant_norm=False,
-                    early_stop=None):
+                       z,
+                       decode_attempts=250,
+                       noise_norm=0.0,
+                       constant_norm=False,
+                       early_stop=None):
         if not (early_stop is None):
             Z = np.tile(z, (25, 1))
             Z = self.perturb_z(Z, noise_norm, constant_norm)
@@ -140,7 +143,7 @@ class VAEUtils(object):
         df = self.prep_mol_df(smiles, z)
         return df
 
-    def enc_dec_functions(self, standardized=True):
+    def enc_dec_functions(self, standardized=False):
         print('Using standarized functions? {}'.format(standardized))
         if not self.params['do_tgru']:
             def decode(z, standardized=standardized):
@@ -167,28 +170,21 @@ class VAEUtils(object):
         return encode, decode
 
     # Now reports predictions after un-normalization.
-    def predict_prop_Z(self, z, standardized=True):
-
-        if standardized:
-            z = self.unstandardize_z(z)
-
+    def predict_prop_Z(self, z):
         # both regression and logistic
         if (('reg_prop_tasks' in self.params) and (len(self.params['reg_prop_tasks']) > 0) and
                 ('logit_prop_tasks' in self.params) and (len(self.params['logit_prop_tasks']) > 0)):
-
             reg_pred, logit_pred = self.property_predictor.predict(z)
             if 'data_normalization_out' in self.params:
                 df_norm = pd.read_csv(self.params['data_normalization_out'])
-                reg_pred = reg_pred * \
-                    df_norm['std'].values + df_norm['mean'].values
+                reg_pred = reg_pred * df_norm['std'].values + df_norm['mean'].values
             return reg_pred, logit_pred
         # regression only scenario
         elif ('reg_prop_tasks' in self.params) and (len(self.params['reg_prop_tasks']) > 0):
             reg_pred = self.property_predictor.predict(z)
             if 'data_normalization_out' in self.params:
                 df_norm = pd.read_csv(self.params['data_normalization_out'])
-                reg_pred = reg_pred * \
-                    df_norm['std'].values + df_norm['mean'].values
+                reg_pred = reg_pred * df_norm['std'].values + df_norm['mean'].values
             return reg_pred
         # logit only scenario
         else:
@@ -202,22 +198,17 @@ class VAEUtils(object):
             # both regression and logistic
             if (('reg_prop_tasks' in self.params) and (len(self.params['reg_prop_tasks']) > 0) and
                     ('logit_prop_tasks' in self.params) and (len(self.params['logit_prop_tasks']) > 0)):
-                reg_pred, logit_pred = self.property_predictor.predict(
-                    self.encode(X))
+                reg_pred, logit_pred = self.property_predictor.predict(self.encode(X))
                 if 'data_normalization_out' in self.params:
-                    df_norm = pd.read_csv(
-                        self.params['data_normalization_out'])
-                    reg_pred = reg_pred * \
-                        df_norm['std'].values + df_norm['mean'].values
+                    df_norm = pd.read_csv(self.params['data_normalization_out'])
+                    reg_pred = reg_pred * df_norm['std'].values + df_norm['mean'].values
                 return reg_pred, logit_pred
             # regression only scenario
             elif ('reg_prop_tasks' in self.params) and (len(self.params['reg_prop_tasks']) > 0):
                 reg_pred = self.property_predictor.predict(self.encode(X))
                 if 'data_normalization_out' in self.params:
-                    df_norm = pd.read_csv(
-                        self.params['data_normalization_out'])
-                    reg_pred = reg_pred * \
-                        df_norm['std'].values + df_norm['mean'].values
+                    df_norm = pd.read_csv(self.params['data_normalization_out'])
+                    reg_pred = reg_pred * df_norm['std'].values + df_norm['mean'].values
                 return reg_pred
 
             # logit only scenario
@@ -226,6 +217,8 @@ class VAEUtils(object):
                 return logit_pred
 
         return predict_prop
+
+
 
     def ls_sampler_w_prop(self, size=None, batch=2500, return_smiles=False):
         if self.data is None:
@@ -251,6 +244,7 @@ class VAEUtils(object):
             return Z, data, smiles
 
         return Z, data
+
 
     def smiles_to_hot(self, smiles, canonize_smiles=True, check_smiles=False):
         if isinstance(smiles, str):

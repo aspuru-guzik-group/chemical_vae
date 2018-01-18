@@ -1,33 +1,33 @@
 '''
-A GRU layer capable of teacher forcing at train time, and sampling from a softmax at test time.
+A GRU layer capable of teacher forcing at train time, and sampling from a softmax at test time. 
 
 # Example of use:
 tgru = TerminalGRU(NCHARS, rnd_seed=42, return_sequences=True, activation='softmax', temperature=0.01, name='tgru_layer')
 
 
 ## Overview of code: main differences from regular GRU
-- Takes in two inputs:
-    1. Previous layer of network (usually from a regular GRU)
+- Takes in two inputs: 
+    1. Previous layer of network (usually from a regular GRU) 
     2. True original sequence input (or a dummy if running in a test phase/free running)
 - Sequential output at each time step is generated in one of two ways:
     1. Teacher forcing (train time):
          Uses true input (in original space) from previous time step to update the state for the current time step.
     2. Free running (test time)
-         Uses sampled output from the previous time step to calculate the current input
-- State is passed as a dictionary containing the following. See step function below for details.
-    - 'initial_states',  'random_cutoff_prob',  'rec_dp_mask'
+         Uses sampled output from the previous time step to calculate the current input 
+- State is passed as a dictionary containing the following. See step function below for details. 
+    - 'initial_states',  'random_cutoff_prob',  'rec_dp_mask' 
 
 
     - a 'raw state' - calculated from the previous step (given by first dimension of state in step)
     - For train phase:
         - raw state is repeated twice
     - For test phase
-        - a 'sampled state' - sampled using the raw state
+        - a 'sampled state' - sampled using the raw state 
         - This then becomes the output for the layer at this timestep
 - Uses 'sampled_rnn' in order to get around state changes
 
 ## Input shape:
-    - list of 2 tensors,
+    - list of 2 tensors, 
         1. 3D tensor (input from previous layer) : '(batch_size, timesteps, input_dim)'
         2. 3D tensor (true input sequence to model) : '(batch_size, timesteps, output_dim)'
         output_dim == units
@@ -46,14 +46,14 @@ tgru = TerminalGRU(NCHARS, rnd_seed=42, return_sequences=True, activation='softm
 
 
 # Arguments:
-    output_dim : dimensions of outputs at each time step, in each sample
+    output_dim : dimensions of outputs at each time step, in each sample 
             called units in Keras 2.0 recurrent layer
-    teacher_force_ratio : Ratio for using teacher forcing method vs. free_running method
+    teacher_force_ratio : Ratio for using teacher forcing method vs. free_running method 
     temperature - Temperature for sampling  om tje GRU layer
     rnd_seed - a random seed to use (currently not being used)
 
 
-This version of TerminalGRU is currrently implemented for self.implementation==0 only
+This version of TerminalGRU is currrently implemented for self.implementation==0 only 
 Other implementations will need to be ported over from original recurrent layer.
 
 self.implementation ==2 : gpu
@@ -69,13 +69,12 @@ import numpy as np
 if K.backend() == 'tensorflow':
     from .sampled_rnn_tf import sampled_rnn
 else:
-
     raise NotImplemented("Backend not implemented")
 
 
 class TerminalGRU(GRU):
     # Heavily adapted from GRU in recurrent.py
-    # Implements professor forcing
+    # Implements professor forcing 
 
     def __init__(self, units,
                  temperature=1., rnd_seed=None, recurrent_dropout=0.0,
@@ -116,7 +115,7 @@ class TerminalGRU(GRU):
 
         # adding an extra recurrent weight here, change from GRU layer:
         # this last recurrent weight applied to true sequence input from prev. timestep,
-        #   or sampled output from prev. time step.
+        #   or sampled output from prev. time step. 
         self.recurrent_kernel = self.add_weight(
             (self.units, self.units * 4),
             name='recurrent_kernel',
@@ -166,7 +165,7 @@ class TerminalGRU(GRU):
         return initial_states
 
     def compute_mask(self, input, mask):
-        # Forced to be single dimension, following behavior of Merge layer
+        # Forced to be single dimension, following behavior of Merge layer 
         # not implemented
         return None
 
@@ -256,7 +255,7 @@ class TerminalGRU(GRU):
 
         input_shapes = input_shape
 
-        # from original recurrent unit, can probably delete entire if this works
+        # from original recurrent unit, can probably delete entire if this works 
         if self.return_sequences:
             return input_shapes[1]
         else:
@@ -270,9 +269,9 @@ class TerminalGRU(GRU):
         return dict(list(base_config.items()) + list(config.items()))
 
     def output_sampling(self, output, rand_matrix):
-        # Generates a sampled selection based on raw output state vector
+        # Generates a sampled selection based on raw output state vector 
         # Creates a cdf vector and compares against a randomly generated vector
-        # Requires a pre-generated rand_matrix (i.e. generated outside step function)
+        # Requires a pre-generated rand_matrix (i.e. generated outside step function) 
 
         sampled_output = output / K.sum(output, axis=-1, keepdims=True)  # (batch_size, self.units)
         mod_sampled_output = sampled_output / K.exp(self.temperature)
@@ -295,9 +294,9 @@ class TerminalGRU(GRU):
         receives inputs for a time step
         @inp : h - [previous_layer_input, true_input_for_previous_timestep] at train time
                or  [previous_layer_input, zeros] at test time
-        @inp : states - a dictionary, contains the following
+        @inp : states - a dictionary, contains the following 
             - 'initial_states' - state vector
-                 - At train time, this includes the true input sequence for the given time step, in addition to the state for the previous time step.
+                 - At train time, this includes the true input sequence for the given time step, in addition to the state for the previous time step. 
                  - At test time,
             - 'random_cutoff_prob' - random cutoff matrix used for sampling at test time
             - 'rec_dp_mask' - for use with dropout (not tested - may break)
