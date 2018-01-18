@@ -6,29 +6,28 @@ This repository contains the framework and code for constructing a variational a
 In short, molecular SMILES are encoded into a code vector representation, and can be decoded from the code representation back to molecular SMILES. The autoencoder may also be jointly trained with property prediction to help shape the latent space. The new latent space can then be optimized upon to find the molecules with the most optimized properties of interest.
 
 In our example, we perform encoding/decoding with the ZINC dataset, and shape the latent space on prediction on logP, QED, and SAS properties.
-## Questions, problems?
-Make a [github issue](https://github.com/aspuru-guzik-group/chemical_vae/issues/new) :smile:. Please be as clear and descriptive as possible.
 
-## Upcoming updates:
+#### Upcoming updates:
 - [ ] Updated Docker environment
 - [ ] Improved tutorial
 
-## Requirements: 
+## Questions, problems?
+Make a [github issue](https://github.com/aspuru-guzik-group/chemical_vae/issues/new) :smile:. Please be as clear and descriptive as possible.
 
+## How to install
+### Requirements: 
+An [Anaconda python environment](https://www.anaconda.com/download) is recommend.
 Check the environment.yml file, but primarily:
 - Python >= 3.5
 - Keras >= 2.0.0 && <= 2.0.7
 - Tensorflow == 1.1
 - RDKit
-- Numpy/Scipy/Matplotlib
-- Scikit-learn
+- Numpy
 
-A jupyter notebook environment is suggested to run the ipynb examples.
+Jupyter notebook is required to run the ipynb examples.
 
-## How to install 
 ### via Anaconda (recommended way)
 Create a conda enviroment:
-
 ```
 conda env create -f environment.yml
 source activate chemvae
@@ -36,7 +35,6 @@ python setup.py install
 ```
 ### via pip
 Assuming you have all the requirements:
-
 `pip install git+https://github.com/aspuru-guzik-group/chemical_vae.git`
 
 ## Example: ZINC dataset
