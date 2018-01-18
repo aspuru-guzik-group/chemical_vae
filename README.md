@@ -14,14 +14,17 @@ In our example, we perform encoding/decoding with the ZINC dataset, and shape th
 ## Requirements: 
 
 Check the environment.yml file, but primarily:
+- Python >= 3.5
 - Keras >= 2.0.0 && <= 2.0.7
 - Tensorflow == 1.1
 - RDKit
+- Numpy/Scipy/Matplotlib
+- Scikit-learn
 
-A jupyter notebook enviroment is suggested to run the ipynb examples.
+A jupyter notebook environment is suggested to run the ipynb examples.
 
-## Install 
-
+## How to install 
+### via Anaconda (recommended way)
 Create a conda enviroment:
 
 ```
@@ -29,8 +32,8 @@ conda env create -f environment.yml
 source activate chemvae
 python setup.py install
 ```
-
-Or install via pip
+### via pip
+Assuming you have all the requirements:
 
 `pip install git+https://github.com/aspuru-guzik-group/chemical_vae.git`
 
