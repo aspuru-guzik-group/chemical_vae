@@ -7,7 +7,7 @@ In short, molecular SMILES are encoded into a code vector representation, and ca
 
 In our example, we perform encoding/decoding with the ZINC dataset, and shape the latent space on prediction on logP, QED, and SAS properties.
 ## Questions, problems?
-Make a github issue :)
+Make a [github issue](https://github.com/aspuru-guzik-group/chemical_vae/issues/new) :smile:. Please be as clear and descriptive as possible.
 
 ## Upcoming updates:
 - [ ] Updated Docker environment
