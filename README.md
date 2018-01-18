@@ -12,23 +12,26 @@ In our example, we perform encoding/decoding with the ZINC dataset, and shape th
 - [ ] Improved tutorial
 
 ## Requirements: 
+
+Check the environment.yml file, but primarily:
 - Keras >= 2.0.0 && <= 2.0.7
 - Tensorflow == 1.1
 - RDKit
 
-You may also use this [docker environment](https://github.com/beangoben/docker_images/tree/master/chemical_vae) 
+A jupyter notebook enviroment is suggested to run the ipynb examples.
 
 ## Install 
 
 Create a conda enviroment:
 
-`
+```
 conda env create -f environment.yml
 source activate chemvae
 python setup.py install
-`
+```
 
 Or install via pip
+
 `pip install git+https://github.com/aspuru-guzik-group/chemical_vae.git`
 
 ## Example: ZINC dataset
@@ -36,13 +39,15 @@ Or install via pip
 This repository contains an example of how to run the autoencoder on the zinc dataset.
 
 First, take a look at the zinc directory. Parameters are set in the following jsons
-  - exp.json  - Sets parameters for location of data, global experimental parameters number of epochs to run, properties to predict etc. 
+  - **exp.json**  - Sets parameters for location of data, global experimental parameters number of epochs to run, properties to predict etc. 
 
 For a full description of all the parameters, see hyperparameters.py ; parameters set in exp.json will overwrite parameters in hyperparameters.py, and parameters set in params.json will overwrite parameters in both exp.json and hyperparameters.py
 
 Once you have set the parameters, run the autoencoder using the command from directory with exp.json: 
 
+`
 python -m chemvae.train_vae
+`
 
 _(Make sure you copy examples directories to not overwrite the trained weights (*.h5))_
 
@@ -51,20 +56,14 @@ train_vae.py : main script for training variational autoencoder
     Accepts arguments -d ...
     Example of how to run (with example directory here)
 
-models.py - Library of models, contains the encoder, decoder and property prediction models.
-
-tgru_k2_gpu.py - Custom keras layer containing custom teacher forcing/sampling 
-
-sampled_rnn_tf.py - Custom rnn function for tgru_k2_gpu.py, written in tensorflow backend.
-
-hyperparameters.py - Some default parameter settings for the autoencoder
-
-mol_utils.py - library for parsing SMILES into one-hot encoding and vice versa
-
-mol_callbacks.py - library containing callbacks used by train_vae.py
-    - Includes Weight_Annealer callback, which is used to update the weight of the KL loss component
-
-vae_utils.py - utility functions for an autoencoder object, used post processing.
+- **models.py** - Library of models, contains the encoder, decoder and property prediction models.
+- **tgru_k2_gpu.py** - Custom keras layer containing custom teacher forcing/sampling 
+- **sampled_rnn_tf.py** - Custom rnn function for tgru_k2_gpu.py, written in tensorflow backend.
+- **hyperparameters.py** - Some default parameter settings for the autoencoder
+- **mol_utils.py** - library for parsing SMILES into one-hot encoding and vice versa
+- **mol_callbacks.py** - library containing callbacks used by train_vae.py
+  - Includes Weight_Annealer callback, which is used to update the weight of the KL loss component
+- **vae_utils.py** - utility functions for an autoencoder object, used post processing.
 
 ## Authors:
 This software is written by Jennifer Wei, Benjamin Sanchez-Lengeling, Dennis Sheberla, Rafael Gomez-Bomberelli, and Alan Aspuru-Guzik (alan@aspuru.com). 
