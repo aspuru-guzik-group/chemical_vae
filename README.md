@@ -35,6 +35,7 @@ python setup.py install
 ```
 ### via pip
 Assuming you have all the requirements:
+
 `pip install git+https://github.com/aspuru-guzik-group/chemical_vae.git`
 
 ## Example: ZINC dataset
