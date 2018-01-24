@@ -25,6 +25,7 @@ Check the environment.yml file, but primarily:
 - Numpy
 
 Jupyter notebook is required to run the ipynb examples.
+Make sure that the [Keras backend](https://keras.io/backend/) is set to use Tensorflow
 
 ### via Anaconda (recommended way)
 Create a conda enviroment:
@@ -37,8 +38,6 @@ python setup.py install
 Assuming you have all the requirements:
 
 `pip install git+https://github.com/aspuru-guzik-group/chemical_vae.git`
-
-Make sure that the [Keras backend](https://keras.io/backend/) is set to use Tensorflow
 
 ## Example: ZINC dataset
 
