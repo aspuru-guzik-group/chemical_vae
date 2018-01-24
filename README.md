@@ -38,6 +38,8 @@ Assuming you have all the requirements:
 
 `pip install git+https://github.com/aspuru-guzik-group/chemical_vae.git`
 
+Make sure that the [Keras backend](https://keras.io/backend/) is set to use Tensorflow
+
 ## Example: ZINC dataset
 
 This repository contains an example of how to run the autoencoder on the zinc dataset.
