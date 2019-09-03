@@ -88,5 +88,6 @@ It is based on the work published in https://arxiv.org/pdf/1610.02415.pdf by
 
 Feel free to reach out to us with any questions! 
 
+## Funding acknowledgements
 
-
+"This work was supported by the Computational Chemical Sciences Program funded by the U.S.Department of Energy, Office of Science, Basic Energy Sciences, under Award #DE- FG02-17ER16362"
