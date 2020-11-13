@@ -269,6 +269,10 @@ def main_no_prop(params):
 
     keras_verbose = params['verbose_print']
 
+    if 'checkpoint_path' in params.keys():
+        callbacks.append(mol_cb.EncoderDecoderCheckpoint(encoder, decoder, params=params,
+                                                         save_best_only=False))
+
     AE_only_model.fit(X_train, model_train_targets,
                     batch_size=params['batch_size'],
                     epochs=params['epochs'],
