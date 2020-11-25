@@ -31,7 +31,7 @@ Make sure that the [Keras backend](https://keras.io/backend/) is set to use Tens
 Create a conda enviroment:
 ```
 conda env create -f environment.yml
-source activate chemvae
+conda activate chemvae
 python setup.py install
 ```
 ### via pip
